@@ -12,99 +12,88 @@ export default function Card1Cover({ card, coverImage }: Props) {
       className="relative overflow-hidden bg-black"
       style={{ width: 1080, height: 1350 }}
     >
-      {/* Background image */}
+      {/* Background image — sem crossOrigin para data URLs funcionarem no export */}
       <img
         src={coverImage}
         alt="cover"
         className="absolute inset-0 w-full h-full object-cover object-top"
-        crossOrigin="anonymous"
       />
 
-      {/* Top gradient — covers top 40% */}
+      {/* Gradiente suave no topo */}
       <div
         className="absolute inset-x-0 top-0"
         style={{
-          height: "45%",
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%)",
+          height: "25%",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%)",
         }}
       />
 
-      {/* Bottom gradient — covers bottom 35% */}
+      {/* Gradiente forte na base — cobre os 55% inferiores */}
       <div
         className="absolute inset-x-0 bottom-0"
         style={{
-          height: "38%",
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0) 100%)",
+          height: "55%",
+          background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%)",
         }}
       />
 
-      {/* TOP — title + subtitle + underline */}
-      <div className="absolute top-[80px] left-0 right-0 px-[90px]">
+      {/* TEXTO — todo na metade inferior, abaixo do rosto */}
+      <div className="absolute bottom-0 left-0 right-0 px-[80px] pb-[80px] flex flex-col gap-4">
+        {/* Título */}
         <p
-          className="text-white leading-[58px] tracking-[-2px]"
+          className="text-white leading-[62px] tracking-[-2px]"
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 600,
-            fontSize: 66,
+            fontSize: 68,
           }}
         >
           {card.title.split("\n").map((line, i) => (
-            <span key={i} className="block">
-              {line}
-            </span>
+            <span key={i} className="block">{line}</span>
           ))}
         </p>
 
+        {/* Palavra em itálico */}
         <p
-          className="text-white mt-2"
+          className="text-white"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 300,
             fontSize: 62,
-            lineHeight: "56px",
+            lineHeight: "58px",
           }}
         >
           {card.subtitle}
         </p>
 
-        {/* Underline bar */}
-        <div
-          className="bg-white mt-4"
-          style={{ width: 220, height: 8, borderRadius: 4 }}
-        />
-      </div>
+        {/* Barra branca */}
+        <div className="bg-white" style={{ width: 200, height: 7, borderRadius: 4 }} />
 
-      {/* BOTTOM — swipe hint + arrow */}
-      <div className="absolute bottom-[80px] left-0 right-0 px-[90px] flex items-center justify-between">
-        <p
-          className="text-white"
-          style={{
-            fontFamily: "'Montserrat', sans-serif",
-            fontWeight: 300,
-            fontSize: 34,
-            lineHeight: "42px",
-            letterSpacing: "-0.5px",
-            textShadow: "0px 2px 8px rgba(0,0,0,0.5)",
-          }}
-        >
-          {card.body}
-        </p>
-
-        {/* Arrow → */}
-        <div className="flex flex-col items-center gap-1 ml-6">
-          <div className="bg-white" style={{ width: 50, height: 4, borderRadius: 4 }} />
-          <div
+        {/* Swipe hint */}
+        <div className="flex items-center justify-between mt-2">
+          <p
+            className="text-white/80"
             style={{
-              width: 0,
-              height: 0,
-              borderTop: "10px solid transparent",
-              borderBottom: "10px solid transparent",
-              borderLeft: "16px solid white",
+              fontFamily: "'Montserrat', sans-serif",
+              fontWeight: 300,
+              fontSize: 32,
+              lineHeight: "40px",
+              letterSpacing: "-0.3px",
             }}
-          />
+          >
+            {card.body}
+          </p>
+          {/* Seta → */}
+          <div className="flex items-center gap-2 ml-4">
+            <div className="bg-white/80" style={{ width: 48, height: 3, borderRadius: 4 }} />
+            <div style={{
+              width: 0, height: 0,
+              borderTop: "9px solid transparent",
+              borderBottom: "9px solid transparent",
+              borderLeft: "15px solid rgba(255,255,255,0.8)",
+            }} />
+          </div>
         </div>
       </div>
     </div>

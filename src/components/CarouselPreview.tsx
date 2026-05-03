@@ -25,7 +25,20 @@ export default function CarouselPreview({ content, coverImage }: Props) {
   const downloadCard = async (index: number) => {
     const ref = cardRefs[index].current;
     if (!ref) return;
-    const png = await toPng(ref, { pixelRatio: 1, cacheBust: true });
+    // Aguarda imagens carregarem antes de capturar
+    await Promise.all(
+      Array.from(ref.querySelectorAll("img")).map(
+        (img) =>
+          img.complete
+            ? Promise.resolve()
+            : new Promise((r) => { img.onload = r; img.onerror = r; })
+      )
+    );
+    const png = await toPng(ref, {
+      pixelRatio: 1,
+      cacheBust: true,
+      skipFonts: false,
+    });
     const a = document.createElement("a");
     a.href = png;
     a.download = `card-${index + 1}-${content.theme}.png`;
