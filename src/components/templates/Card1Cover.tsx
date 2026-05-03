@@ -16,20 +16,38 @@ export default function Card1Cover({ card, coverImage }: Props) {
       <img
         src={coverImage}
         alt="cover"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-top"
         crossOrigin="anonymous"
       />
-      {/* Dark gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
 
-      {/* Top-right title */}
-      <div className="absolute top-[135px] right-[93px] text-right">
+      {/* Top gradient — covers top 40% */}
+      <div
+        className="absolute inset-x-0 top-0"
+        style={{
+          height: "45%",
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%)",
+        }}
+      />
+
+      {/* Bottom gradient — covers bottom 35% */}
+      <div
+        className="absolute inset-x-0 bottom-0"
+        style={{
+          height: "38%",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0) 100%)",
+        }}
+      />
+
+      {/* TOP — title + subtitle + underline */}
+      <div className="absolute top-[80px] left-0 right-0 px-[90px]">
         <p
-          className="text-white leading-[55px] tracking-[-3.2px]"
+          className="text-white leading-[58px] tracking-[-2px]"
           style={{
             fontFamily: "'Montserrat', sans-serif",
-            fontWeight: 500,
-            fontSize: 64,
+            fontWeight: 600,
+            fontSize: 66,
           }}
         >
           {card.title.split("\n").map((line, i) => (
@@ -38,68 +56,57 @@ export default function Card1Cover({ card, coverImage }: Props) {
             </span>
           ))}
         </p>
-      </div>
 
-      {/* Italic keyword */}
-      <div className="absolute top-[268px] right-[93px] text-right">
         <p
-          className="text-white"
+          className="text-white mt-2"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 300,
-            fontSize: 69,
-            lineHeight: "40px",
+            fontSize: 62,
+            lineHeight: "56px",
           }}
         >
           {card.subtitle}
         </p>
+
+        {/* Underline bar */}
+        <div
+          className="bg-white mt-4"
+          style={{ width: 220, height: 8, borderRadius: 4 }}
+        />
       </div>
 
-      {/* White underline bar */}
-      <div
-        className="absolute bg-white"
-        style={{
-          top: 316,
-          right: 93,
-          width: 241,
-          height: 9,
-          borderRadius: 4,
-        }}
-      />
-
-      {/* Swipe hint */}
-      <div className="absolute bottom-[160px] right-[93px] text-right">
+      {/* BOTTOM — swipe hint + arrow */}
+      <div className="absolute bottom-[80px] left-0 right-0 px-[90px] flex items-center justify-between">
         <p
           className="text-white"
           style={{
             fontFamily: "'Montserrat', sans-serif",
-            fontWeight: 100,
-            fontSize: 36,
-            lineHeight: "38px",
-            letterSpacing: "-0.72px",
-            textShadow: "0px 4px 4px rgba(0,0,0,0.25)",
+            fontWeight: 300,
+            fontSize: 34,
+            lineHeight: "42px",
+            letterSpacing: "-0.5px",
+            textShadow: "0px 2px 8px rgba(0,0,0,0.5)",
           }}
         >
-          {card.body.split(" ").slice(0, 2).join(" ")}
-          <br />
-          {card.body.split(" ").slice(2, 5).join(" ")}
-          <br />
-          {card.body.split(" ").slice(5).join(" ")}
+          {card.body}
         </p>
-      </div>
 
-      {/* Arrow indicator */}
-      <div
-        className="absolute bg-white"
-        style={{
-          bottom: 148,
-          right: 140,
-          width: 55,
-          height: 5,
-          borderRadius: 4,
-        }}
-      />
+        {/* Arrow → */}
+        <div className="flex flex-col items-center gap-1 ml-6">
+          <div className="bg-white" style={{ width: 50, height: 4, borderRadius: 4 }} />
+          <div
+            style={{
+              width: 0,
+              height: 0,
+              borderTop: "10px solid transparent",
+              borderBottom: "10px solid transparent",
+              borderLeft: "16px solid white",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
