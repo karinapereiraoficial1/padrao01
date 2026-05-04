@@ -12,86 +12,92 @@ export default function Card1Cover({ card, coverImage }: Props) {
       className="relative overflow-hidden bg-black"
       style={{ width: 1080, height: 1350 }}
     >
-      {/* Background image — sem crossOrigin para data URLs funcionarem no export */}
+      {/* Foto — object-position top para rosto aparecer no topo */}
       <img
         src={coverImage}
         alt="cover"
         className="absolute inset-0 w-full h-full object-cover object-top"
       />
 
-      {/* Gradiente suave no topo */}
+      {/* Gradient suave no topo — só para dar respiro visual */}
       <div
         className="absolute inset-x-0 top-0"
         style={{
-          height: "25%",
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%)",
+          height: "20%",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%)",
         }}
       />
 
-      {/* Gradiente forte na base — cobre os 55% inferiores */}
+      {/* Gradient forte na base — safe zone do texto */}
       <div
         className="absolute inset-x-0 bottom-0"
         style={{
-          height: "55%",
-          background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%)",
+          height: "48%",
+          background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0) 100%)",
         }}
       />
 
-      {/* TEXTO — todo na metade inferior, abaixo do rosto */}
-      <div className="absolute bottom-0 left-0 right-0 px-[80px] pb-[80px] flex flex-col gap-4">
-        {/* Título */}
+      {/* BLOCO DE TEXTO — 100% na zona segura (base) */}
+      <div
+        className="absolute bottom-0 left-0 right-0"
+        style={{ padding: "0 96px 88px 96px" }}
+      >
+        {/* Headline */}
         <p
-          className="text-white leading-[62px] tracking-[-2px]"
           style={{
             fontFamily: "'Montserrat', sans-serif",
-            fontWeight: 600,
-            fontSize: 68,
+            fontWeight: 700,
+            fontSize: 62,
+            lineHeight: "68px",
+            letterSpacing: "-1.5px",
+            color: "#ffffff",
+            marginBottom: 12,
           }}
         >
-          {card.title.split("\n").map((line, i) => (
-            <span key={i} className="block">{line}</span>
-          ))}
+          {card.title}
         </p>
 
-        {/* Palavra em itálico */}
+        {/* Subheadline — itálico, levemente menor */}
         <p
-          className="text-white"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
-            fontWeight: 300,
-            fontSize: 62,
-            lineHeight: "58px",
+            fontWeight: 400,
+            fontSize: 52,
+            lineHeight: "54px",
+            color: "rgba(255,255,255,0.90)",
+            marginBottom: 24,
           }}
         >
           {card.subtitle}
         </p>
 
-        {/* Barra branca */}
-        <div className="bg-white" style={{ width: 200, height: 7, borderRadius: 4 }} />
+        {/* Separador */}
+        <div style={{ width: 180, height: 6, borderRadius: 3, backgroundColor: "#ffffff", marginBottom: 28 }} />
 
-        {/* Swipe hint */}
-        <div className="flex items-center justify-between mt-2">
+        {/* Texto secundário + seta */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <p
-            className="text-white/80"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 300,
-              fontSize: 32,
-              lineHeight: "40px",
-              letterSpacing: "-0.3px",
+              fontSize: 30,
+              lineHeight: "38px",
+              color: "rgba(255,255,255,0.75)",
+              letterSpacing: "0.2px",
+              flex: 1,
             }}
           >
             {card.body}
           </p>
           {/* Seta → */}
-          <div className="flex items-center gap-2 ml-4">
-            <div className="bg-white/80" style={{ width: 48, height: 3, borderRadius: 4 }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: 24, flexShrink: 0 }}>
+            <div style={{ width: 44, height: 3, borderRadius: 2, backgroundColor: "rgba(255,255,255,0.7)" }} />
             <div style={{
               width: 0, height: 0,
-              borderTop: "9px solid transparent",
-              borderBottom: "9px solid transparent",
-              borderLeft: "15px solid rgba(255,255,255,0.8)",
+              borderTop: "8px solid transparent",
+              borderBottom: "8px solid transparent",
+              borderLeft: "13px solid rgba(255,255,255,0.7)",
             }} />
           </div>
         </div>

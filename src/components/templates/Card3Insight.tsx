@@ -10,57 +10,57 @@ export default function Card3Insight({ card, backgroundImage }: Props) {
   return (
     <div
       className="relative overflow-hidden"
-      style={{
-        width: 1080,
-        height: 1350,
-        background: backgroundImage ? undefined : "#0d0d1a",
-      }}
+      style={{ width: 1080, height: 1350, backgroundColor: "#0a0a0a" }}
     >
       {backgroundImage && (
-        <img
-          src={backgroundImage}
-          alt="bg"
-          className="absolute inset-0 w-full h-full object-cover"
-          crossOrigin="anonymous"
-        />
+        <>
+          <img
+            src={backgroundImage}
+            alt="bg"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
+        </>
       )}
-      <div className="absolute inset-0 bg-black/50" />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-[145px] text-center gap-6">
+      {/* Conteúdo no terço inferior-central */}
+      <div
+        className="absolute inset-0 flex flex-col justify-center"
+        style={{ padding: "0 96px" }}
+      >
+        {/* Emoji */}
         {card.emoji && (
-          <p style={{ fontSize: 48 }}>{card.emoji}</p>
+          <p style={{ fontSize: 56, marginBottom: 40, lineHeight: 1 }}>{card.emoji}</p>
         )}
 
-        {/* "Agora eu entendo:" header */}
+        {/* Headline itálica — "Agora eu entendo:" */}
         <p
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
-            fontWeight: 600,
-            fontSize: 64,
-            lineHeight: "47px",
+            fontWeight: 700,
+            fontSize: 70,
+            lineHeight: "76px",
             color: "#ffffff",
-            textShadow: "0px 4px 4px rgba(0,0,0,0.5)",
+            letterSpacing: "-0.5px",
+            marginBottom: 32,
           }}
         >
           {card.title}
         </p>
 
-        {/* White bar */}
-        <div
-          className="bg-white"
-          style={{ width: 241, height: 9, borderRadius: 4 }}
-        />
+        {/* Separador */}
+        <div style={{ width: 200, height: 6, borderRadius: 3, backgroundColor: "#ffffff", marginBottom: 40 }} />
 
-        {/* Insight body */}
+        {/* Corpo — insight */}
         <p
-          className="text-white"
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 300,
-            fontSize: 36,
-            lineHeight: "50px",
-            textShadow: "0px 4px 4px rgba(0,0,0,0.5)",
+            fontSize: 38,
+            lineHeight: "54px",
+            color: "rgba(255,255,255,0.85)",
+            letterSpacing: "0.1px",
           }}
         >
           {card.body}
