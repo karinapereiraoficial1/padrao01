@@ -2,39 +2,22 @@
 import { useState, useRef } from "react";
 import { CarouselContent } from "@/types/carousel";
 import CarouselPreview from "@/components/CarouselPreview";
-import { useFaceDetection } from "@/hooks/useFaceDetection";
 
 export default function Home() {
   const [theme, setTheme] = useState("");
   const [coverImage, setCoverImage] = useState<string>("");
-  const [safeZoneRatio, setSafeZoneRatio] = useState<number>(0.60);
-  const [detecting, setDetecting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState<CarouselContent | null>(null);
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { detectSafeZone } = useFaceDetection();
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
-    reader.onload = async (ev) => {
-      const dataUrl = ev.target?.result as string;
-      setCoverImage(dataUrl);
+    reader.onload = (ev) => {
+      setCoverImage(ev.target?.result as string);
       setContent(null);
-
-      // Detecta rosto e calcula zona segura
-      setDetecting(true);
-      try {
-        const ratio = await detectSafeZone(dataUrl);
-        setSafeZoneRatio(ratio);
-      } catch {
-        setSafeZoneRatio(0.60);
-      } finally {
-        setDetecting(false);
-      }
     };
     reader.readAsDataURL(file);
   };
@@ -105,29 +88,17 @@ export default function Home() {
               className="border-2 border-dashed border-white/20 rounded-xl p-6 text-center cursor-pointer hover:border-purple-500 transition"
             >
               {coverImage ? (
-                <div className="relative inline-block">
-                  <img
-                    src={coverImage}
-                    alt="capa"
-                    className="h-40 mx-auto object-cover rounded-lg"
-                  />
-                  {detecting && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg">
-                      <p className="text-xs text-white">Detectando rosto...</p>
-                    </div>
-                  )}
-                </div>
+                <img
+                  src={coverImage}
+                  alt="capa"
+                  className="h-40 mx-auto object-cover rounded-lg"
+                />
               ) : (
                 <p className="text-white/40 text-sm">
                   Clique para escolher uma foto
                 </p>
               )}
             </div>
-            {coverImage && !detecting && (
-              <p className="text-xs text-white/30 mt-1">
-                Zona segura detectada: texto inicia em {Math.round(safeZoneRatio * 100)}% da altura
-              </p>
-            )}
             <input
               ref={fileInputRef}
               type="file"
@@ -141,10 +112,10 @@ export default function Home() {
 
           <button
             onClick={handleGenerate}
-            disabled={loading || detecting}
+            disabled={loading}
             className="w-full py-4 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-semibold text-lg transition"
           >
-            {loading ? "Gerando carrossel..." : detecting ? "Analisando foto..." : "Gerar carrossel ✨"}
+            {loading ? "Gerando carrossel..." : "Gerar carrossel ✨"}
           </button>
         </div>
 
@@ -153,7 +124,7 @@ export default function Home() {
             <h2 className="text-lg font-semibold mb-8 text-center text-white/80">
               Carrossel: <span className="text-white">{content.theme}</span>
             </h2>
-            <CarouselPreview content={content} coverImage={coverImage} safeZoneRatio={safeZoneRatio} />
+            <CarouselPreview content={content} coverImage={coverImage} />
           </div>
         )}
       </div>
