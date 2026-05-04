@@ -4,27 +4,34 @@ import { CardContent } from "@/types/carousel";
 interface Props {
   card: CardContent;
   coverImage: string;
+  safeZoneRatio?: number; // 0–1: onde o texto pode começar (abaixo do rosto)
 }
 
-// Zona segura: texto ocupa APENAS os 38% inferiores do card.
-// A foto fica nos 62% superiores — rosto nunca coberto.
-const SAFE_ZONE_START = 0.62; // 62% do topo é área da foto
-
-export default function Card1Cover({ card, coverImage }: Props) {
+export default function Card1Cover({ card, coverImage, safeZoneRatio = 0.60 }: Props) {
   const cardH = 1350;
-  const safeTop = Math.round(cardH * SAFE_ZONE_START); // 837px
+  const cardW = 1080;
+  const safeTop = Math.round(cardH * safeZoneRatio);
+  const textZoneH = cardH - safeTop; // altura disponível para texto
+
+  // Escala as fontes proporcionalmente ao espaço disponível
+  const scale = Math.min(1, textZoneH / 480);
+  const titleSize = Math.round(54 * scale);
+  const subtitleSize = Math.round(46 * scale);
+  const hintSize = Math.round(26 * scale);
+  const paddingH = 88;
+  const paddingBottom = Math.round(64 * scale);
 
   return (
     <div
       style={{
         position: "relative",
-        width: 1080,
+        width: cardW,
         height: cardH,
         overflow: "hidden",
         backgroundColor: "#000",
       }}
     >
-      {/* FOTO — ocupa 100% mas o rosto fica nos primeiros 62% */}
+      {/* Foto */}
       <img
         src={coverImage}
         alt="cover"
@@ -38,20 +45,20 @@ export default function Card1Cover({ card, coverImage }: Props) {
         }}
       />
 
-      {/* GRADIENTE de transição — suave, começa em 45% */}
+      {/* Gradiente — começa 15% acima do safe zone */}
       <div
         style={{
           position: "absolute",
           left: 0,
           right: 0,
-          top: "45%",
+          top: `${Math.max(0, (safeZoneRatio - 0.18) * 100)}%`,
           bottom: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.96) 60%, rgba(0,0,0,1) 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 35%, rgba(0,0,0,0.96) 65%, rgba(0,0,0,1) 100%)",
         }}
       />
 
-      {/* ZONA DE TEXTO — começa em safeTop, nunca sobe acima disso */}
+      {/* ZONA DE TEXTO — ancorada abaixo do rosto detectado */}
       <div
         style={{
           position: "absolute",
@@ -62,7 +69,7 @@ export default function Card1Cover({ card, coverImage }: Props) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          padding: "0 88px 72px 88px",
+          padding: `0 ${paddingH}px ${paddingBottom}px ${paddingH}px`,
           gap: 0,
         }}
       >
@@ -71,12 +78,12 @@ export default function Card1Cover({ card, coverImage }: Props) {
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 700,
-            fontSize: 54,
-            lineHeight: "62px",
+            fontSize: titleSize,
+            lineHeight: `${Math.round(titleSize * 1.15)}px`,
             letterSpacing: "-1px",
             color: "#ffffff",
             margin: 0,
-            marginBottom: 14,
+            marginBottom: Math.round(12 * scale),
           }}
         >
           {card.title}
@@ -88,11 +95,11 @@ export default function Card1Cover({ card, coverImage }: Props) {
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 400,
-            fontSize: 46,
-            lineHeight: "50px",
+            fontSize: subtitleSize,
+            lineHeight: `${Math.round(subtitleSize * 1.12)}px`,
             color: "rgba(255,255,255,0.88)",
             margin: 0,
-            marginBottom: 22,
+            marginBottom: Math.round(20 * scale),
           }}
         >
           {card.subtitle}
@@ -105,7 +112,7 @@ export default function Card1Cover({ card, coverImage }: Props) {
             height: 5,
             borderRadius: 3,
             backgroundColor: "#fff",
-            marginBottom: 24,
+            marginBottom: Math.round(20 * scale),
           }}
         />
 
@@ -115,8 +122,8 @@ export default function Card1Cover({ card, coverImage }: Props) {
             style={{
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 300,
-              fontSize: 26,
-              lineHeight: "34px",
+              fontSize: hintSize,
+              lineHeight: `${Math.round(hintSize * 1.35)}px`,
               color: "rgba(255,255,255,0.65)",
               margin: 0,
               flex: 1,

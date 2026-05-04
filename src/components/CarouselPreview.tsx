@@ -10,11 +10,12 @@ import Card4Conclusion from "./templates/Card4Conclusion";
 interface Props {
   content: CarouselContent;
   coverImage: string;
+  safeZoneRatio?: number;
 }
 
 const SCALE = 0.25;
 
-export default function CarouselPreview({ content, coverImage }: Props) {
+export default function CarouselPreview({ content, coverImage, safeZoneRatio }: Props) {
   const cardRefs = [
     useRef<HTMLDivElement>(null),
     useRef<HTMLDivElement>(null),
@@ -52,7 +53,7 @@ export default function CarouselPreview({ content, coverImage }: Props) {
   };
 
   const cards = [
-    <Card1Cover key={0} card={content.cards[0]} coverImage={coverImage} />,
+    <Card1Cover key={0} card={content.cards[0]} coverImage={coverImage} safeZoneRatio={safeZoneRatio} />,
     <Card2Identification key={1} card={content.cards[1]} />,
     <Card3Insight key={2} card={content.cards[2]} />,
     <Card4Conclusion key={3} card={content.cards[3]} />,
