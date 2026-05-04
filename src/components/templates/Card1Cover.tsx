@@ -16,24 +16,23 @@ export default function Card1Cover({ card, coverImage }: Props) {
         className="absolute inset-0 w-full h-full object-cover object-top"
       />
 
-      {/* OVERLAY (legibilidade) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40" />
+      {/* OVERLAY (legibilidade) — gradiente mais forte na base */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
 
-      {/* TOP ZONE (0% - 18%) */}
-      <div className="absolute top-0 left-0 w-full h-[18%] px-[10%] pt-[6%] flex items-start">
-        <h1 className="text-white text-[64px] leading-[1.1] max-w-[80%] font-semibold">
-          {card.title}
-        </h1>
-      </div>
-
-      {/* SAFE ZONE (18% - 82%) */}
+      {/* SAFE ZONE (0% - 82%) */}
       {/* NÃO COLOCAR NADA AQUI */}
 
-      {/* BOTTOM ZONE (82% - 100%) */}
-      <div className="absolute bottom-0 left-0 w-full h-[18%] px-[10%] pb-[6%] flex items-end">
-        <p className="text-white text-[36px] leading-[1.4] max-w-[80%]">
+      {/* BOTTOM ZONE: subtitle acima, headline ancorada na base */}
+      <div
+        className="absolute bottom-0 left-0 w-full px-[10%] flex flex-col justify-end gap-[24px]"
+        style={{ paddingBottom: 100 }}
+      >
+        <p className="text-white/75 text-[36px] leading-[1.5] max-w-[80%]">
           {card.subtitle}
         </p>
+        <h1 className="text-white text-[64px] leading-[1.15] max-w-[85%] font-semibold">
+          {card.title}
+        </h1>
       </div>
     </div>
   );
