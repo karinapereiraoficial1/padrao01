@@ -23,45 +23,51 @@ export default function Card4Conclusion({ card, backgroundImage }: Props) {
         </>
       )}
 
-      {/* Conteúdo centralizado */}
       <div
         className="absolute inset-0 flex flex-col justify-center"
-        style={{ padding: "0 96px" }}
+        style={{ padding: "0 108px" }}
       >
         {/* Emoji */}
         {card.emoji && (
-          <p style={{ fontSize: 56, marginBottom: 48, lineHeight: 1 }}>{card.emoji}</p>
+          <p style={{ fontSize: 72, lineHeight: 1, marginBottom: 64 }}>{card.emoji}</p>
         )}
 
-        {/* Headline itálica — título conclusivo */}
+        {/* Frase conclusiva */}
         <p
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 700,
-            fontSize: 76,
-            lineHeight: "82px",
+            fontSize: 80,
+            lineHeight: "92px",
             color: "#ffffff",
-            letterSpacing: "-1px",
-            marginBottom: 36,
-            textShadow: "0 4px 4px rgba(0,0,0,0.6)",
+            letterSpacing: "-1.5px",
+            marginBottom: 40,
           }}
         >
           {card.title}
         </p>
 
-        {/* Separador cinza */}
-        <div style={{ width: 160, height: 6, borderRadius: 3, backgroundColor: "#d9d9d9", marginBottom: 40 }} />
+        {/* Separador */}
+        <div
+          style={{
+            width: 120,
+            height: 4,
+            borderRadius: 2,
+            backgroundColor: "rgba(255,255,255,0.55)",
+            marginBottom: 48,
+          }}
+        />
 
-        {/* Corpo — reforço da mensagem */}
+        {/* Reforço da mensagem */}
         <p
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 300,
-            fontSize: 36,
-            lineHeight: "52px",
-            color: "rgba(255,255,255,0.82)",
-            letterSpacing: "0.1px",
+            fontSize: 40,
+            lineHeight: "62px",
+            color: "rgba(255,255,255,0.78)",
+            letterSpacing: "0.2px",
           }}
         >
           {card.body}

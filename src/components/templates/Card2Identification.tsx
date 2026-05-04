@@ -6,6 +6,11 @@ interface Props {
   backgroundImage?: string;
 }
 
+// Sistema tipográfico:
+//   Body    → Montserrat Light  40px / lh 1.55
+//   Display → Playfair Italic Bold  88px / lh 1.15
+// Espaçamento em grid de 8px
+
 export default function Card2Identification({ card, backgroundImage }: Props) {
   return (
     <div
@@ -19,44 +24,51 @@ export default function Card2Identification({ card, backgroundImage }: Props) {
             alt="bg"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.55)" }} />
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.58)" }} />
         </>
       )}
 
-      {/* Conteúdo centralizado verticalmente com grid de terços */}
       <div
         className="absolute inset-0 flex flex-col justify-center"
-        style={{ padding: "0 96px" }}
+        style={{ padding: "0 108px" }}
       >
-        {/* Bloco 1 — Texto de identificação (corpo) */}
+        {/* Corpo — identificação com o leitor */}
         <p
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 300,
-            fontSize: 38,
-            lineHeight: "54px",
-            color: "rgba(255,255,255,0.88)",
+            fontSize: 40,
+            lineHeight: "62px",
+            color: "rgba(255,255,255,0.82)",
+            letterSpacing: "0.2px",
             marginBottom: 56,
-            letterSpacing: "0.1px",
           }}
         >
           {card.body}
         </p>
 
-        {/* Separador */}
-        <div style={{ width: 60, height: 4, borderRadius: 2, backgroundColor: "rgba(255,255,255,0.3)", marginBottom: 40 }} />
+        {/* Separador sutil */}
+        <div
+          style={{
+            width: 56,
+            height: 2,
+            borderRadius: 1,
+            backgroundColor: "rgba(255,255,255,0.22)",
+            marginBottom: 48,
+          }}
+        />
 
-        {/* Bloco 2 — Destaque em itálico (highlight) */}
+        {/* Destaque — palavra/frase de impacto */}
         <p
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 700,
-            fontSize: 80,
-            lineHeight: "82px",
+            fontSize: 88,
+            lineHeight: "101px",
             color: "#ae00b1",
-            letterSpacing: "-1px",
-            textShadow: "0 4px 24px rgba(174,0,177,0.3)",
+            letterSpacing: "-1.5px",
+            textShadow: "0 0 48px rgba(174,0,177,0.25)",
           }}
         >
           {card.highlightWord}

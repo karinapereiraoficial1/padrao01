@@ -19,48 +19,55 @@ export default function Card3Insight({ card, backgroundImage }: Props) {
             alt="bg"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.62)" }} />
         </>
       )}
 
-      {/* Conteúdo no terço inferior-central */}
       <div
         className="absolute inset-0 flex flex-col justify-center"
-        style={{ padding: "0 96px" }}
+        style={{ padding: "0 108px" }}
       >
         {/* Emoji */}
         {card.emoji && (
-          <p style={{ fontSize: 56, marginBottom: 40, lineHeight: 1 }}>{card.emoji}</p>
+          <p style={{ fontSize: 64, lineHeight: 1, marginBottom: 56 }}>{card.emoji}</p>
         )}
 
-        {/* Headline itálica — "Agora eu entendo:" */}
+        {/* Título — "Agora eu entendo:" */}
         <p
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 700,
-            fontSize: 70,
-            lineHeight: "76px",
+            fontSize: 72,
+            lineHeight: "85px",
             color: "#ffffff",
-            letterSpacing: "-0.5px",
-            marginBottom: 32,
+            letterSpacing: "-1px",
+            marginBottom: 40,
           }}
         >
           {card.title}
         </p>
 
         {/* Separador */}
-        <div style={{ width: 200, height: 6, borderRadius: 3, backgroundColor: "#ffffff", marginBottom: 40 }} />
+        <div
+          style={{
+            width: 200,
+            height: 3,
+            borderRadius: 2,
+            backgroundColor: "rgba(255,255,255,0.9)",
+            marginBottom: 48,
+          }}
+        />
 
-        {/* Corpo — insight */}
+        {/* Insight principal */}
         <p
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 300,
-            fontSize: 38,
-            lineHeight: "54px",
-            color: "rgba(255,255,255,0.85)",
-            letterSpacing: "0.1px",
+            fontSize: 40,
+            lineHeight: "62px",
+            color: "rgba(255,255,255,0.82)",
+            letterSpacing: "0.2px",
           }}
         >
           {card.body}
