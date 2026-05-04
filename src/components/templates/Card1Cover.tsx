@@ -6,98 +6,131 @@ interface Props {
   coverImage: string;
 }
 
+// Zona segura: texto ocupa APENAS os 38% inferiores do card.
+// A foto fica nos 62% superiores — rosto nunca coberto.
+const SAFE_ZONE_START = 0.62; // 62% do topo é área da foto
+
 export default function Card1Cover({ card, coverImage }: Props) {
+  const cardH = 1350;
+  const safeTop = Math.round(cardH * SAFE_ZONE_START); // 837px
+
   return (
     <div
-      className="relative overflow-hidden bg-black"
-      style={{ width: 1080, height: 1350 }}
+      style={{
+        position: "relative",
+        width: 1080,
+        height: cardH,
+        overflow: "hidden",
+        backgroundColor: "#000",
+      }}
     >
-      {/* Foto — object-position top para rosto aparecer no topo */}
+      {/* FOTO — ocupa 100% mas o rosto fica nos primeiros 62% */}
       <img
         src={coverImage}
         alt="cover"
-        className="absolute inset-0 w-full h-full object-cover object-top"
-      />
-
-      {/* Gradient suave no topo — só para dar respiro visual */}
-      <div
-        className="absolute inset-x-0 top-0"
         style={{
-          height: "20%",
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%)",
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "top center",
         }}
       />
 
-      {/* Gradient forte na base — safe zone do texto */}
+      {/* GRADIENTE de transição — suave, começa em 45% */}
       <div
-        className="absolute inset-x-0 bottom-0"
         style={{
-          height: "48%",
-          background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0) 100%)",
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: "45%",
+          bottom: 0,
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.96) 60%, rgba(0,0,0,1) 100%)",
         }}
       />
 
-      {/* BLOCO DE TEXTO — 100% na zona segura (base) */}
+      {/* ZONA DE TEXTO — começa em safeTop, nunca sobe acima disso */}
       <div
-        className="absolute bottom-0 left-0 right-0"
-        style={{ padding: "0 96px 88px 96px" }}
+        style={{
+          position: "absolute",
+          top: safeTop,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          padding: "0 88px 72px 88px",
+          gap: 0,
+        }}
       >
         {/* Headline */}
         <p
           style={{
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 700,
-            fontSize: 62,
-            lineHeight: "68px",
-            letterSpacing: "-1.5px",
+            fontSize: 54,
+            lineHeight: "62px",
+            letterSpacing: "-1px",
             color: "#ffffff",
-            marginBottom: 12,
+            margin: 0,
+            marginBottom: 14,
           }}
         >
           {card.title}
         </p>
 
-        {/* Subheadline — itálico, levemente menor */}
+        {/* Subheadline itálica */}
         <p
           style={{
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: 400,
-            fontSize: 52,
-            lineHeight: "54px",
-            color: "rgba(255,255,255,0.90)",
-            marginBottom: 24,
+            fontSize: 46,
+            lineHeight: "50px",
+            color: "rgba(255,255,255,0.88)",
+            margin: 0,
+            marginBottom: 22,
           }}
         >
           {card.subtitle}
         </p>
 
         {/* Separador */}
-        <div style={{ width: 180, height: 6, borderRadius: 3, backgroundColor: "#ffffff", marginBottom: 28 }} />
+        <div
+          style={{
+            width: 160,
+            height: 5,
+            borderRadius: 3,
+            backgroundColor: "#fff",
+            marginBottom: 24,
+          }}
+        />
 
-        {/* Texto secundário + seta */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        {/* Swipe hint + seta */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <p
             style={{
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 300,
-              fontSize: 30,
-              lineHeight: "38px",
-              color: "rgba(255,255,255,0.75)",
-              letterSpacing: "0.2px",
+              fontSize: 26,
+              lineHeight: "34px",
+              color: "rgba(255,255,255,0.65)",
+              margin: 0,
               flex: 1,
             }}
           >
             {card.body}
           </p>
-          {/* Seta → */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: 24, flexShrink: 0 }}>
-            <div style={{ width: 44, height: 3, borderRadius: 2, backgroundColor: "rgba(255,255,255,0.7)" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+            <div style={{ width: 36, height: 3, borderRadius: 2, backgroundColor: "rgba(255,255,255,0.6)" }} />
             <div style={{
               width: 0, height: 0,
-              borderTop: "8px solid transparent",
-              borderBottom: "8px solid transparent",
-              borderLeft: "13px solid rgba(255,255,255,0.7)",
+              borderTop: "7px solid transparent",
+              borderBottom: "7px solid transparent",
+              borderLeft: "12px solid rgba(255,255,255,0.6)",
             }} />
           </div>
         </div>
