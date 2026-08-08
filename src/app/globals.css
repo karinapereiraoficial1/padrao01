@@ -1,21 +1,70 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   PADRÃO ATELIER '26 — paleta de tendência de moda
+   Fonte canônica dos valores: src/styles/palette.ts
+   Composição 60 neutros / 30 âncoras / 10 acentos
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* neutros */
+  --atelier-egret: #f4efe7;
+  --atelier-linho: #e3d7c6;
+  --atelier-areia: #c9b49b;
+  --atelier-toffee: #8a6a4f;
+  --atelier-underworld: #6e6963;
+  --atelier-espresso: #3b2c24;
+  --atelier-tinta: #181318;
+
+  /* âncoras */
+  --atelier-navy: #02154e;
+  --atelier-poseidon: #2f4e7e;
+  --atelier-beringela: #4a2340;
+  --atelier-oliva: #55522e;
+
+  /* acentos */
+  --atelier-tomate: #d61233;
+  --atelier-cobalto: #0e3fd1;
+  --atelier-argila: #be7a5f;
+  --atelier-teal: #1c7e84;
+  --atelier-fucsia: #c0327f;
+  --atelier-pessego: #f0c3a8;
+
+  --background: var(--atelier-egret);
+  --foreground: var(--atelier-espresso);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* expõe a paleta como utilitários Tailwind: bg-atelier-beringela,
+     text-atelier-pessego, border-atelier-areia, … */
+  --color-atelier-egret: var(--atelier-egret);
+  --color-atelier-linho: var(--atelier-linho);
+  --color-atelier-areia: var(--atelier-areia);
+  --color-atelier-toffee: var(--atelier-toffee);
+  --color-atelier-underworld: var(--atelier-underworld);
+  --color-atelier-espresso: var(--atelier-espresso);
+  --color-atelier-tinta: var(--atelier-tinta);
+  --color-atelier-navy: var(--atelier-navy);
+  --color-atelier-poseidon: var(--atelier-poseidon);
+  --color-atelier-beringela: var(--atelier-beringela);
+  --color-atelier-oliva: var(--atelier-oliva);
+  --color-atelier-tomate: var(--atelier-tomate);
+  --color-atelier-cobalto: var(--atelier-cobalto);
+  --color-atelier-argila: var(--atelier-argila);
+  --color-atelier-teal: var(--atelier-teal);
+  --color-atelier-fucsia: var(--atelier-fucsia);
+  --color-atelier-pessego: var(--atelier-pessego);
+
+  --font-sans: var(--font-montserrat);
+  --font-display: var(--font-playfair);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--atelier-tinta);
+    --foreground: var(--atelier-egret);
   }
 }
 
